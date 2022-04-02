@@ -79,6 +79,12 @@
 #define NO_DEBUG   // saves file size
 
 
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+
+
+
+
 
 // #define ORYX_CONFIGURATOR    // saves ~300 bytes, seems not to break anything
 
