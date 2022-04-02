@@ -84,8 +84,6 @@
 
 
 
-
-
 // #define ORYX_CONFIGURATOR    // saves ~300 bytes, seems not to break anything
 
 
@@ -94,12 +92,14 @@
 
 //#define RGB_MATRIX_STARTUP_SPD 60 // was here, don't know why
 
-/* ** Disable Specific Animations */
 
+
+/* ** Disable Specific Animations */
 /* I couldn't figure out how to disable animations and enable just single ones */
 /* so I just disable them all one after the other, saves me about 3.380 bytes of space */
+/* only it doesn't, so... probably its already deactivated somewhere else?  */
 
-/* #define DISABLE_RGB_MATRIX_ALPHAS_MODS
+#define DISABLE_RGB_MATRIX_ALPHAS_MODS
 #define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #define DISABLE_RGB_MATRIX_BREATHING
 #define DISABLE_RGB_MATRIX_BAND_SAT
@@ -134,7 +134,7 @@
 #define DISABLE_RGB_MATRIX_SPLASH
 #define DISABLE_RGB_MATRIX_MULTISPLASH
 #define DISABLE_RGB_MATRIX_SOLID_SPLASH
-#define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH */
+#define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 
 

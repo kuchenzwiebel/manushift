@@ -7,9 +7,10 @@ CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
 AUTO_SHIFT_ENABLE = no
 #AUTO_SHIFT_MODIFIERS = yes
-# DYNAMIC_MACRO_ENABLE = yes # deactivated for now to save on flashing size
+DYNAMIC_MACRO_ENABLE = no # deactivated for now to save on flashing size
 SRC = matrix.c
 RGB_MATRIX_ENABLE = yes
+RGBLIGHT_ENABLE = no     # disable underglow
 
 UNICODE_ENABLE   = no  # deactivate default Unicode
 UNICODEMAP_ENABLE = yes # activate Unicode Table with indices
