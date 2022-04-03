@@ -16,16 +16,14 @@
    - or make L1 and L2 combined act as L5 or something like in neo2 (nice to hold)
 */
 
+
+
+
 /* * Includes and defines */
 #include QMK_KEYBOARD_H
 #include "version.h"
 #include "keymap_german.h"
 
-
-
-/* ** ORYX defines that might be illuminating, not used at the moment*/
-// #define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)
-// #define KC_PC_UNDO LCTL(KC_Z)
 
 /* ** Aliases / handles */
 #define ent_KENT LT(0,KC_ENTER)
@@ -41,15 +39,12 @@
 
 /* * Macros: the enum part  */
 enum custom_keycodes {
-  RGB_SLD,
+ // RGB_SLD,
   ID_mark_par,
   ST_MACRO_1,
   M_Id_Quer,
   M_ALT_TAB = SAFE_RANGE, // for super alt tab
-  Memo_bearb,
-  Memo_switch,
-  Memo_both,
-  Refocus
+ // Refocus
 };
 
 /* ** Super Alt Tab */
@@ -66,22 +61,24 @@ void matrix_scan_user(void) {     // The very important timer.
   }
 }
 
+
+
+
+
+
 /* * Combos */
 // don't forget to update the combo counter in .config every time you add a combo!!!
 
-
-//const uint16_t PROGMEM test_combo1[] = {LSFT_T(KC_ENTER), RSFT_T(KC_ENTER), COMBO_END};  // this breaks my shift functionality, so... fix it
 const uint16_t PROGMEM test_combo1[] = {KC_K, KC_H, KC_G, COMBO_END}; // Caps Lock
 const uint16_t PROGMEM test_combo2[] = {KC_V, KC_L, COMBO_END};
 const uint16_t PROGMEM test_combo3[] = {DE_EQL, DE_RABK, COMBO_END};
-//const uint16_t PROGMEM test_combo3[] = {KC_V, KC_L, COMBO_END};
 // TODO: make "⇒" from those to: DE_RPRN,        DE_MINS,
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(test_combo1, KC_CAPSLOCK),
     COMBO(test_combo2, KC_1),             // this is stupid. i should do something more interesting with this ;-)
     //    COMBO(test_combo3, X(DRAR)),
-        COMBO(test_combo3, KC_INSERT)        // really what i  want is to send Unicode ⇒, but it doesn't work with "X(DRAR)". will have to try sendstring in custom code
+    COMBO(test_combo3, KC_INSERT)        // really what i  want is to send Unicode ⇒, but it doesn't work with "X(DRAR)". will have to try sendstring in custom code
     //    COMBO(test_combo2, LCTL(KC_Z)), // keycodes with modifiers are possible too!
 
 };
@@ -279,7 +276,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 
 
-    /* Mod-Tap terms */
+    /*   ** Mod-Tap terms */
 
     // home row base layer
   case CTL_T(KC_E):
@@ -337,7 +334,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-/* ** Hold on other keypress */
+/*   ** Hold on other keypress */
 // currently only for Enter/Shift
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -355,7 +352,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-/* ** per-key tapping force hold (prefer hold function) */
+/*   ** per-key tapping force hold (prefer hold function) */
 // do i even need this?
 // i had tapping force hold for all keys, now it should be restricted to the ones below
 // had to do this because home row modifiers on navigation layer killed repeating arrow keys (very bad)
@@ -375,7 +372,7 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
 
 
 /* * THE LAYERS */
-/* ** OVjerV.ieW        (TODO)
+/* ** Overview        (TODO)
  *    ,------------------------------------------------------------------------.              ,-------------------------------------------------------------------------.
  *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
  *    | Win/Esc    |   1     |   2     |   3     |   4     |   5     | RESET   |              | TG(6)   |   6     |   7     |   8     |   9     |   0     | Backspace   |
@@ -473,7 +470,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TD(ESC_WTAB)    , KC_1         ,  KC_2       , KC_3         , KC_4       ,   KC_5       ,        RESET   ,                                         TG(6)  ,     KC_6 ,   KC_7       ,    KC_8,           KC_9,           KC_0,           KC_BSPACE,
     KC_TAB          , x_CUT        ,  v_PASTE    , KC_L         , c_COPY     ,   KC_W       ,        TG(3)   ,                                         OSL(7) ,     KC_K ,   KC_H       ,    KC_G,           f_SEARCH,       KC_Q,           DE_SS,
     LT(2,KC_RALT)   , GUI_T(KC_U)  ,  ALT_T(KC_I), SFT_T(KC_A)  , CTL_T(KC_E),   KC_O       ,                                                                       KC_S ,   CTL_T(KC_N),    SFT_T(KC_R),    ALT_T(KC_T),    GUI_T(KC_D),           LT(2,DE_Y),
-    LSFT_T(KC_ENTER), LT(1,DE_UDIA)  ,  DE_ODIA      , DE_ADIA        , KC_P       ,   LT(4,DE_Z) ,        C(DE_Z) ,                                         C(KC_S),     KC_B ,   m_MENU     ,    KC_COMMA,       KC_DOT,         KC_J,           RSFT_T(KC_ENTER),
+    LSFT_T(KC_ENTER), LT(1,DE_UDIA),  DE_ODIA    , DE_ADIA      , KC_P       ,   LT(4,DE_Z) ,        C(DE_Z) ,                                         C(KC_S),     KC_B ,   m_MENU     ,    KC_COMMA,       KC_DOT,         KC_J,           RSFT_T(KC_ENTER),
     _______         , OSM(MOD_LCTL),  KC_LGUI    , OSM(MOD_LALT), LT(1,KC_SPACE),                                                                                           LT(1,KC_SPACE),  OSM(MOD_LALT),  KC_RALT,        OSM(MOD_LCTL),  TT(7),
                                                                                                                                 /* thumbs */
     /*                                                                     2     */                 LSFT(KC_F10),   LCTL(KC_F),        /* */     TD(CVXA),      A(KC_TAB),
@@ -815,7 +812,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______,        _______, LCTL(KC_UP),    LCTL(KC_DOWN),  LCTL(KC_SPACE),                                                                                                 LCTL(KC_UP),    LCTL(KC_DOWN),  LCTL(KC_SPACE), KC_DOWN,        KC_UP,
                                                                                                            _______,        _______,        _______,        _______,
                                                                                                                            _______,        _______,
-                                                                                           _______,        _______,        _______,     Memo_both,        Memo_bearb,  Memo_switch
+                                                                                           _______,        _______,        _______,        _______,        _______,        _______
   ),
 
 
@@ -864,64 +861,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TO(0),          _______,        _______,        _______,        _______,        _______,        _______,                                        _______,        _______,        _______,        _______,        _______,         _______,     DYN_REC_STOP,
     _______,     HYPR(KC_X),        _______,        _______,        _______,        _______,        _______,                                        _______,        _______,        _______,        _______,     HYPR(KC_F),  DYN_REC_START2,  DYN_MACRO_PLAY2,
     _______,        _______,        _______,     HYPR(KC_A),     HYPR(KC_E),        _______,                                                                  XP(BANG, SNEK),       _______,     HYPR(KC_R),     HYPR(KC_T),  DYN_REC_START1,  DYN_MACRO_PLAY1,
-    _______,        _______,        _______,        _______,        _______,        _______,        _______,                                        _______,        _______,     HYPR(KC_M),  G(C(KC_LEFT)),          KC_UP,  G(C(KC_RIGHT)),          _______,
+    _______,        _______,        _______,        _______,         DE_GRV,        DE_ACUT,        _______,                                        _______,        _______,     HYPR(KC_M),  G(C(KC_LEFT)),          KC_UP,  G(C(KC_RIGHT)),          _______,
     _______,        _______,        _______,        _______,        _______,                                                                                                        _______,        KC_LEFT,        KC_DOWN,        KC_RIGHT,          _______,
-                                                                                                           _______,        _______,        _______,        _______,
-                                                                                                                           _______,        _______,
-                                                                                           _______,        _______,        _______,        _______,        _______,        _______
-  ),
-
-
-/* ** Layer 8: experiments */
-// ==========================================================   LAYER 3 =======================   MOUSE  ============
- /*
-  * Layer :
- *
- *
- *    ,------------------------------------------------------------------------.              ,-------------------------------------------------------------------------.
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |------------+---------+---------+---------+---------+-------------------|              |---------+---------+---------+---------+---------+---------+-------------|
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |------------+---------+---------+---------+---------+---------|         |              |         |---------+---------+---------+---------+---------+-------------|
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |            |         |         |         |         |         |---------|              |---------|         |         |         |         |         |             |
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |------------+---------+---------+---------+---------+---------|         |              |         |---------+---------+---------+---------+---------+-------------|
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *     ------------+---------+---------+---------+---------+-------------------'               -------------------+---------+---------+---------+---------+-------------'
- *     |           |         |         |         |         |                                              |         |         |         |         |             |
- *     |           |         |         |         |         |                                              |         |         |         |         |             |
- *     |           |         |         |         |         |                                              |         |         |         |         |             |
- *      ---------------------------------------------------'                                               -----------------------------------------------------'
- *
- *
- *                                                ,-------------------.           ,--------------------.
- *                                                |         |         |           |         |          |
- *                                                |         |         |           |         |          |
- *                                                |         |         |           |         |          |
- *                                      ,---------|---------|---------|           |---------+----------+---------.
- *                                      |         |         |         |           |         |          |         |
- *                                      |         |         |         |           |         |          |         |
- *                                      |         |         |         |           |         |          |         |
- *                                      |         |         |---------|           |---------|          |         |
- *                                      |         |         |         |           |         |          |         |
- *                                      |         |         |         |           |         |          |         |
- *                                      |         |         |         |           |         |          |         |
- *                                       -----------------------------'            ------------------------------'
-*/
-
-  [8] = LAYOUT_ergodox_pretty(
-    TO(0),                 _______,        _______,        _______,        _______,        _______,        _______,                                        _______,        _______,        _______,        _______,        _______,        _______,        _______,
-           _______,        _______,        _______,        _______,        _______,        _______,        _______,                                        _______,        _______,        _______,        _______,        _______,        _______,        _______,
-           _______,        _______,        _______,        _______,        _______,            _______,                                                                    _______,        _______,        _______,        _______,        _______,        _______,
-           _______,        _______,        _______,        _______,        _______, DE_ACUT,               _______,                                        _______,        _______,        _______,        _______,        _______,        _______,        _______,
-           _______,        _______,        _______,        _______,        _______,                                                                                                        _______,        _______,        _______,        _______,        _______,
                                                                                                            _______,        _______,        _______,        _______,
                                                                                                                            _______,        _______,
                                                                                            _______,        _______,        _______,        _______,        _______,        _______
@@ -930,54 +871,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-/* ** Layer X: skeleton (empty ASCII art for easy adding of layers */
-/*
- *
- *
- *    ,------------------------------------------------------------------------.              ,-------------------------------------------------------------------------.
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |------------+---------+---------+---------+---------+-------------------|              |---------+---------+---------+---------+---------+---------+-------------|
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |------------+---------+---------+---------+---------+---------|         |              |         |---------+---------+---------+---------+---------+-------------|
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |            |         |         |         |         |         |---------|              |---------|         |         |         |         |         |             |
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |------------+---------+---------+---------+---------+---------|         |              |         |---------+---------+---------+---------+---------+-------------|
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *    |            |         |         |         |         |         |         |              |         |         |         |         |         |         |             |
- *     ------------+---------+---------+---------+---------+-------------------'               -------------------+---------+---------+---------+---------+-------------'
- *     |           |         |         |         |         |                                              |         |         |         |         |             |
- *     |           |         |         |         |         |                                              |         |         |         |         |             |
- *     |           |         |         |         |         |                                              |         |         |         |         |             |
- *      ---------------------------------------------------'                                               -----------------------------------------------------'
- *
- *
- *                                                ,-------------------.           ,--------------------.
- *                                                |         |         |           |         |          |
- *                                                |         |         |           |         |          |
- *                                                |         |         |           |         |          |
- *                                      ,---------|---------|---------|           |---------+----------+---------.
- *                                      |         |         |         |           |         |          |         |
- *                                      |         |         |         |           |         |          |         |
- *                                      |         |         |         |           |         |          |         |
- *                                      |         |         |---------|           |---------|          |         |
- *                                      |         |         |         |           |         |          |         |
- *                                      |         |         |         |           |         |          |         |
- *                                      |         |         |         |           |         |          |         |
- *                                       -----------------------------'            ------------------------------'
-*/
-
-
 
 /* * RGB Stuff */
-/* ========= */
-/* RGB stuff */
-/* ========= */
 
 extern bool g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
@@ -991,16 +886,16 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
     // first the RIGHT hand, for whatever reason. going from inside towards outside
     {0,0,0},    {0,0,0},      {0,0,0},      {0,0,0},       {0,0,0},
     {0,0,0},    {0,0,0},      {0,0,0},      {0,0,0},       {0,0,0},
-    {0,0,0},    {35,255,255}, {15,0,100},   {85,255,160},  {250,230,201}, // home-row mods
+    {0,0,0},    {35,255,255}, {15,0,100},   {85,255,160},  {250,230,201},   // home-row mods
     {0,0,0},    {0,0,0},      {0,0,0},      {0,0,0},       {0,0,0},
-    /*{ }*/ {15,0,150},   {85,255,158}, {169,200,243}, {35,255,255},      // red-orange, green, blue, yellow (slightly orange)
+    /*{ }*/     {15,0,150},   {85,255,158}, {169,200,243}, {35,255,255},    // red-orange, green, blue, yellow (slightly orange)
 
     // then the left hand, also going from inside out, so it's mirrored... what's on the left here is actually on the right
     {0,0,0},    {0,0,0},      {0,0,0},       {0,0,0},      {0,0,0},
     {0,0,0},    {0,0,0},      {0,0,0},       {0,0,0},      {0,0,0},
-    {0,0,0},    {35,255,255}, {15,0,100},    {85,255,160}, {250,230,201}, // home-row mods
+    {0,0,0},    {35,255,255}, {15,0,100},    {85,255,160}, {250,230,201},   // home-row mods
     {0,0,0},    {0,0,0},      {0,0,0},       {0,0,0},      {0,0,0},
-    {15,0,150}, {85,255,158}, {250,230,201}, {35,255,255}  /*{ }*/        // red-orange, green, red, yellow (slightly orange)
+    {15,0,150}, {85,255,158}, {250,230,201}, {35,255,255}  /*{ }*/          // red-orange, green, red, yellow (slightly orange)
   },
 
   [1] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {10,225,255}, {10,225,255}, {10,225,255}, {0,0,0}, {0,0,0}, {10,225,255}, {10,225,255}, {10,225,255}, {0,0,0}, {0,0,0}, {10,225,255}, {10,225,255}, {10,225,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {249,228,255}, {31,255,255}, {105,255,255}, {31,255,255}, {141,255,233}, {105,255,255}, {105,255,255}, {0,0,0}, {105,255,255}, {105,255,255}, {249,228,255}, {31,255,255}, {0,183,238}, {31,255,255}, {0,183,238}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
@@ -1077,9 +972,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
 
 
-/* ** Macros: the definitions */
+ /*   ** Macros: the definitions */
 
-// careful... we're inside process_record_user function here!
+ // careful... we're inside process_record_user function here!
 
 
   case ID_mark_par:		// Indesign: mark the whole paragraph (including line break)
@@ -1114,50 +1009,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
 
 
-
-  case Memo_bearb:		// MemoQ: Open entry, wait, confirm
-    if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_N)) SS_DELAY(500) SS_TAP(X_ENTER) );
-
-    }
-    break;
-
-
-
-  case Memo_switch:		// MemoQ: refocus (send "Tab" two times) and go down one Segment
-    if (record->event.pressed) {
-      SEND_STRING(
-		  	  SS_LALT(SS_TAP(X_TAB)) SS_DELAY(200) SS_LALT(SS_TAP(X_TAB))  SS_DELAY(200)
-		  SS_TAP(X_DOWN) );
-
-    }
-    break;
-
-
-
-  case Memo_both:		// MemoQ: refocus (send "Tab" two times) and go down one Segment
-    if (record->event.pressed) {
-      SEND_STRING(
-		  SS_LCTL(SS_TAP(X_N)) SS_DELAY(500) SS_TAP(X_ENTER) SS_DELAY(250)
-		  SS_LALT(SS_TAP(X_TAB)) SS_DELAY(250) SS_LALT(SS_TAP(X_TAB))  SS_DELAY(250)
-		  SS_TAP(X_DOWN) );
-
-    }
-    break;
-
-  case Refocus:   // refocus windows if focus was lost by sending M-Tab twice
+ /*  case Refocus:   // refocus windows if focus was lost by sending M-Tab twice
     if (record->event.pressed) {
       SEND_STRING(
 		  SS_LALT(SS_TAP(X_TAB)) SS_DELAY(250) SS_LALT(SS_TAP(X_TAB)));
     }
-    break;
+    break; */
 
 
-  case RGB_SLD:                // not sure what this one does, was included in my ORYX export
+  /* case RGB_SLD:                // not sure what this one does, was included in my ORYX export
     if (record->event.pressed) {
       rgblight_mode(1);
     }
-    return false;
+    return false; */
 
 
 
