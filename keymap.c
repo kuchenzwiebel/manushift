@@ -465,7 +465,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                      `-----------------------------'           `------------------------------'
 */
 
-[0] = LAYOUT_ergodox_pretty(
+[0] = LAYOUT_ergodox_pretty( // base layer
 			      /* base layer (neo2) */
     TD(ESC_WTAB)    , KC_1         ,  KC_2       , KC_3         , KC_4       ,   KC_5       ,        RESET   ,                                         TG(6)  ,     KC_6 ,   KC_7       ,    KC_8,           KC_9,           KC_0,           KC_BSPACE,
     KC_TAB          , x_CUT        ,  v_PASTE    , KC_L         , c_COPY     ,   KC_W       ,        TG(3)   ,                                         OSL(7) ,     KC_K ,   KC_H       ,    KC_G,           f_SEARCH,       KC_Q,           DE_SS,
@@ -523,7 +523,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                                       -----------------------------'            ------------------------------'
 
  */
-[1] = LAYOUT_ergodox_pretty(
+[1] = LAYOUT_ergodox_pretty( // nav, numpad, f-keys
 			    /* movement and numpad */
 			    _______ ,   KC_F1        ,  KC_F2         ,  KC_F3         ,  KC_F4          ,  KC_F5         ,      A(KC_F4)   ,                                    _______,   KC_F6      ,    KC_F7        ,  KC_F8        ,  KC_F9        ,  KC_F10         ,   KC_F11   ,
 			    _______ ,   C(DE_Z)      ,  KC_BSPACE     ,  KC_UP         ,  KC_DELETE      ,  KC_PGUP       ,      KC_PGUP    ,                                    _______,   KC_BSPACE  ,    KC_P7        ,  KC_P8        ,  KC_P9        ,  KC_KP_PLUS     ,   KC_F12   ,
@@ -578,7 +578,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                      |         |         |         |           |         |          |         |
  *                                       -----------------------------'            ------------------------------'
  */
-[2] = LAYOUT_ergodox_pretty(
+[2] = LAYOUT_ergodox_pretty( // symbols
 			      /* symbols, brackets, etc. */
 			    TO(0)   ,    DE_SS    ,      X(AACU),        KC_NO,          KC_NO,          KC_NO,             _______,                                        _______,    XXXXXXX,   XP(DQ1, SQ1),   XP(DQ2, SQ2),   XP(DQ3, SQ3),        _______,        XXXXXXX,
 			    XXXXXXX ,    DE_EURO  ,      DE_UNDS,        DE_LBRC,        DE_RBRC,        DE_CIRC,           _______,                                        DE_ACUT ,   DE_EXLM,        DE_LABK,        DE_RABK,         DE_EQL,        DE_AMPR,          DE_AT,
@@ -632,7 +632,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                       -----------------------------'            ------------------------------'
 */
 
-[3] = LAYOUT_ergodox_pretty(
+[3] = LAYOUT_ergodox_pretty( // mouse movement + clicks
     TO(0), 	           _______,        _______,        _______,        _______,          _______,        _______,                                        _______,        _______,        _______,        _______,        _______,        _______,        _______,
            _______,        _______,     KC_MS_BTN1,       KC_MS_UP,     KC_MS_BTN2,          _______,        _______,                                        _______,        _______,     KC_MS_BTN4,     KC_MS_BTN5,        _______,        _______,        _______,
            _______,        MO(4)  ,     KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,         _______,                                                                        _______,   KC_MS_ACCEL0,   KC_MS_ACCEL1,   KC_MS_ACCEL2,        _______,        _______,
@@ -686,7 +686,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                       -----------------------------'            ------------------------------'
 */
 
-  [4] = LAYOUT_ergodox_pretty(
+  [4] = LAYOUT_ergodox_pretty( // mouse scrolling
     TO(0), 	           _______,        _______,         _______,         _______,        _______,        _______,                                        _______,        _______,        _______,        _______,        _______,        _______,        _______,
            _______,        _______,        _______,     KC_MS_WH_UP,         _______,        _______,        _______,                                        _______,        _______,        _______,        _______,        _______,        _______,        _______,
            _______,        _______,  KC_MS_WH_LEFT,   KC_MS_WH_DOWN,  KC_MS_WH_RIGHT,        _______,                                                                        _______,        _______,        _______,        _______,        _______,        _______,
@@ -745,7 +745,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 /* LAYER 5: Indesign */
-[5] = LAYOUT_ergodox_pretty
+[5] = LAYOUT_ergodox_pretty // Indesgn layer
 (
  TO(0)        ,  C(KC_1)          ,  C(KC_2)          ,  C(KC_3)     ,  C(KC_4)      ,  C(KC_5)      ,  A(C(KC_0))  ,        /* */       C(KC_0)        ,  C(KC_6)      ,  C(KC_7)     ,  C(KC_8)      ,  C(KC_9)     ,  C(KC_0)     ,  _______       ,
  _______      ,  _______          ,  S(KC_PGUP)       ,  KC_UP       ,  S(KC_PGDOWN) ,  C(KC_W)      ,  A(KC_PGUP)  ,        /* */       S(KC_PGUP)     ,  _______      ,  C(KC_KP_7)  ,  C(KC_KP_8)   ,  C(KC_KP_9)  ,  M_Id_Quer  ,  _______       ,
@@ -804,7 +804,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
   /* LAYER 6: MemoQ */
-  [6] = LAYOUT_ergodox_pretty(
+  [6] = LAYOUT_ergodox_pretty( // MemoQ layer
     TO(0),                 _______,        _______,        _______,        _______,        _______,        _______,                                        _______,        _______,        _______,        _______,        _______,        _______,        _______,
            _______,        _______,        _______, KC_UP,                 _______,        _______,        _______,                                        _______,        _______, LCTL(KC_7),     LCTL(KC_8),     LCTL(KC_9),            _______, LCTL(KC_N),
            _______,        _______, LCTL(KC_LEFT),  KC_DOWN,        LCTL(KC_RIGHT),        _______,                                                                        _______, LCTL(KC_4),     LCTL(KC_5),     LCTL(KC_6),            _______, LCTL(LSFT(KC_ENTER)),
@@ -930,7 +930,9 @@ void set_layer_color(int layer) {
 }
 
 void rgb_matrix_indicators_user(void) {
-  if (  // g_suspend_state ||       // commented out to avoid an error during linking I don't understand... but now the filesize is suddenly too large! why???
+  if (  // g_suspend_state ||       // commented out to avoid an error during linking I don't understand... this should work with ZSA's repo though
+  // at some point I might look further into this... so:
+  // the variable is set in led_matrix.c, rgb_matrix.c and rgb_matrix.h in ZSA's repo, but doesn't appear in regular qmk's codebase
   keyboard_config.disable_layer_led) { return; }
   switch (biton32(layer_state)) {
     case 0:
