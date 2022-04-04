@@ -224,7 +224,6 @@ enum {
 enum {
     TD_1f1,
     CVXA,
-    //    f_search,
     CTL_ALT,
     ESC_WTAB
 };
@@ -257,8 +256,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   /*   return 130; */
   case TD(TD_1f1):
     return TAPPING_TERM + 1000;
-  /* case TD(f_search): */
-  /*   return TAPPING_TERM + 100; */
   case f_SEARCH:
     return TAPPING_TERM + 100;
   case TD(CVXA):
@@ -1031,7 +1028,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 
-/* ** Custom hold functions - kind of a dual role key without tap dance */
+/*   ** Custom hold functions - kind of a dual role key without tap dance */
 
 // careful - we're still inside the process_record_user function !
 
@@ -1129,8 +1126,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 
-/* * == Layer State LEDs ==
- */
+/* * == Layer State LEDs == */
+// this controls the three single color LEDs on the top of the right half
+// disabling this saves about 200 bytes, so not much
 
 uint32_t layer_state_set_user(uint32_t state) {
 
@@ -1179,7 +1177,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 /* * Tab Dance Part II */
 // also based on QMK website (=> DangielGGordon)
 
-/* ** general explanation  */
+/*   ** general explanation  */
 /* Return an integer that corresponds to what kind of tap dance should be executed.
  *
  * How to figure out tap dance state: interrupted and pressed.
@@ -1209,7 +1207,7 @@ uint32_t layer_state_set_user(uint32_t state) {
  */
 
 
-/* ** the engine - returns tap dance state (single tab/hold, double tab/hold, double single tab, triple tab/hold) */
+/*   ** the engine - returns tap dance state (single tab/hold, double tab/hold, double single tab, triple tab/hold) */
 
 uint8_t cur_dance(qk_tap_dance_state_t *state) {
     if (state->count == 1) {
@@ -1235,7 +1233,7 @@ uint8_t cur_dance(qk_tap_dance_state_t *state) {
 }
 
 
-/* ** CC_CV_CX_CA tap dance */
+/*   ** CC_CV_CX_CA tap dance */
 
 // Create an instance of 'tap' for the 'cvxa' tap dance.
 static tap cvxa_state = {
@@ -1271,46 +1269,7 @@ void cvxa_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 
 
-
-
-/* ** f_search tap dance */
-// gives f, F, , C-f
-
-// but i use f_search custom hold function at the moment
-
-/* // Create an instance of 'tap' for the 'cvxa' tap dance. */
-/* static tap f_state = { */
-/*     .is_press_action = true, */
-/*     .state = 0 */
-/* }; */
-
-/* void f_finished(qk_tap_dance_state_t *state, void *user_data) { */
-/*   f_state.state = cur_dance(state); */
-/*   switch (f_state.state) {  */
-/*   case SINGLE_TAP: register_code(KC_F); break; */
-/*   case SINGLE_HOLD: register_code(KC_LSFT); tap_code(KC_F); break;  */
-/*   case DOUBLE_TAP: tap_code(KC_F); tap_code(KC_F); break; */
-/*   case DOUBLE_HOLD: register_code(KC_LCTL); tap_code(KC_F); break; */
-/*     // Last case is for fast typing. Assuming your key is `f`: */
-/*     // For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`. */
-/*     // In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms. */
-/*   case DOUBLE_SINGLE_TAP: tap_code(KC_F); register_code(KC_F); */
-/*   } */
-/* } */
-
-/* // the whole thing could probably be written without a reset function... i guess */
-/* void f_reset(qk_tap_dance_state_t *state, void *user_data) { */
-/*   switch (f_state.state) { */
-/*   case SINGLE_TAP: unregister_code(KC_F); break; */
-/*   case SINGLE_HOLD: unregister_code(KC_LSFT); break; */
-/*   case DOUBLE_TAP: break; */
-/*   case DOUBLE_HOLD: unregister_code(KC_LCTL); break; */
-/*   case DOUBLE_SINGLE_TAP: unregister_code(KC_F); */
-/*   } */
-/*   f_state.state = 0; */
-/* } */
-
-/* ** ctl/alt tap dance */
+/*   ** ctl/alt tap dance */
 // gives  _, CTL, _, ALT
 
 
@@ -1346,7 +1305,9 @@ void c_a_reset(qk_tap_dance_state_t *state, void *user_data) {
   c_a_state.state = 0;
 }
 
-/* ** esc/W+Tab tap dance [ESC_WTAB]*/
+
+
+/*   ** esc/W+Tab tap dance [ESC_WTAB]*/
 // gives  esc, W+Tab (Overview), _, _,
 
 
@@ -1383,11 +1344,11 @@ void esc_ov_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 
-/* ** list of tap dance actions */
+
+/*   ** list of tap dance actions */
 qk_tap_dance_action_t tap_dance_actions[] = {
   [CVXA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, cvxa_finished, cvxa_reset),         // 1st Arg: call on every tap, 2nd arg: call "with final tap count", 3rd arg: call "when tap dance action resets"
   [TD_1f1] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_F1),
-  //  [f_search] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, f_finished, f_reset),
   [CTL_ALT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, c_a_finished, c_a_reset),
   [ESC_WTAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, esc_ov_finished, esc_ov_reset),
 
