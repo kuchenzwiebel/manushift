@@ -32,8 +32,9 @@
 #define v_PASTE LT(0,KC_V)
 #define c_COPY LT(0,KC_C)
 #define f_SEARCH LT(0,KC_F)
+#define hyph_ENDASH LT(0,DE_MINS)
 
-
+#define TSKMGR LCTL(LSFT(KC_ESC))
 
 
 
@@ -137,7 +138,7 @@ combo_t key_combos[COMBO_COUNT] = {
 
 
 
-/* *** hopefully fixes my shift/enter combo keys */
+/* *** tap-only combos for use with Mod-Tap keys */
 bool get_combo_must_tap(uint16_t index, combo_t *combo) {
     // If you want all combos to be tap-only, just uncomment the next line
     // return true
@@ -186,8 +187,7 @@ const uint32_t PROGMEM unicode_map[] = {
     [SQ1] = 0x201A,	   // ‚
     [SQ2] = 0x2018,	   // ‘
     [SQ3] = 0x2019,	   // ’
-    [DRAR] = 0x21D2,       // ⇒
-    //    [] = 0x,   //
+    [DRAR] = 0x21D2,      // ⇒
     //    [] = 0x,   //
     //    [] = 0x,   //
     //    [] = 0x,   //
@@ -258,7 +258,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   case TD(CVXA):
     return TAPPING_TERM + 100;
   case TD(CTL_ALT):
-    return TAPPING_TERM + 100;
+    return TAPPING_TERM + 100;    // hitting another key directly after pressing and holding the CTL_ALT key results in it only applying to that first key
+                                  // but setting this to 10 ms breaks the one-shot functionality (or maybe the other thing did...)
+                                  // or else hold on other keypress could work...
 
     // longer for German ü on left pinky
     // AARRRGH Im so stupid!!! doesn't work because the key ist not DE_UDIA but LT(1,DE_UDIA), so...
@@ -276,7 +278,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   case CTL_T(KC_E):
     return TAPPING_TERM + 100;
   case SFT_T(KC_A):
-    return TAPPING_TERM + 40;   // less harm in accidentally choosing hold action and most time sensitive
+    return TAPPING_TERM;   // less harm in accidentally choosing hold action and most time sensitive
   case ALT_T(KC_I):
     return TAPPING_TERM + 100;
   case GUI_T(KC_U):
@@ -286,7 +288,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   case CTL_T(KC_N):
     return TAPPING_TERM + 100;
   case SFT_T(KC_R):
-    return TAPPING_TERM + 40;   // less harm in accidentally choosing hold action and most time sensitive
+    return TAPPING_TERM;   // less harm in accidentally choosing hold action and most time sensitive
   case ALT_T(KC_T):
     return TAPPING_TERM + 100;
   case GUI_T(KC_D):
@@ -335,8 +337,11 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     case LSFT_T(KC_ENTER):
     // Immediately Select The Hold Action When Another Key Is Pressed.
     return true;
+
     case RSFT_T(KC_ENTER):
-    // Immediately Select The Hold Action When Another Key Is Pressed.
+    return true;
+
+    case TD(CTL_ALT):   // seems to have no effect... perhaps because it's custom code?
     return true;
 
   default:
@@ -346,7 +351,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-/*   ** per-key tapping force hold (prefer hold function) */
+/*   ** per-key tapping force hold (select hold function on second keydown after rapidly tapping - essentially like DOUBLE_HOLD case in TDs) */
 // do i even need this?
 // i had tapping force hold for all keys, now it should be restricted to the ones below
 // had to do this because home row modifiers on navigation layer killed repeating arrow keys (very bad)
@@ -536,8 +541,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [2] = LAYOUT_ergodox_pretty( // symbols
 			      /* symbols, brackets, etc. */
 			    TO(0)   ,    DE_SS    ,      X(AACU),        KC_NO,          KC_NO,          KC_NO,             _______,                                        _______,    XXXXXXX,   XP(DQ1, SQ1),   XP(DQ2, SQ2),   XP(DQ3, SQ3),        _______,        XXXXXXX,
-			    XXXXXXX ,    DE_EURO  ,      DE_UNDS,        DE_LBRC,        DE_RBRC,        DE_CIRC,           _______,                                        DE_ACUT ,   DE_EXLM,        DE_LABK,        DE_RABK,         DE_EQL,        DE_AMPR,          DE_AT,
-			    _______ ,    DE_BSLS  ,      DE_SLSH,        DE_LCBR,        DE_RCBR,        DE_ASTR,                                                                       DE_QUES ,        DE_LPRN,        DE_RPRN,        DE_MINS,        DE_COLN,        DE_AT,
+			    XXXXXXX ,    DE_EURO  ,      DE_UNDS,        DE_LBRC,        DE_RBRC,        DE_CIRC,           _______,                                        DE_ACUT ,   DE_EXLM,        DE_LABK,        DE_RABK,        DE_EQL,         DE_AMPR,        DE_AT,
+			    _______ ,    DE_BSLS  ,      DE_SLSH,        DE_LCBR,        DE_RCBR,        DE_ASTR,                                                                       DE_QUES ,       DE_LPRN,        DE_RPRN,        hyph_ENDASH,    DE_COLN,        DE_AT,
 			    _______ ,    DE_HASH  ,      DE_DLR,         DE_PIPE,        DE_TILD,        DE_GRV,            _______,                                        DE_CIRC ,   DE_PLUS,        DE_PERC,        DE_DQUO,        DE_QUOT,        DE_SCLN,        _______,
 			    XXXXXXX ,    _______  ,      _______,        _______,        _______,                                                                                                       _______,        _______,        _______,        XXXXXXX,        XXXXXXX,
                                                                                                                                 /* thumbs */
@@ -1062,6 +1067,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
 
+
+    // hyph_ENDASH
+  case LT(0,DE_MINS):         // sends regular ENTER on tap and Numpad ENTER on hold (for use in Indesign)
+
+    if (record->tap.count && record->event.pressed) {
+      return true;         // Return true for normal processing of tap keycode
+      break;
+    } else if (record->event.pressed) {
+      //tap_code16(KC_F24); tap_code16(DE_MINS); tap_code16(DE_MINS); tap_code16(KC_SPACE); tap_code16(KC_BSPACE); // Intercept hold function to send something that hopefully triggers WinCompose
+      send_unicode_string("–");
+      return false;
+    }
+
     //   f_SEARCH
   case LT(0,KC_F):         //sends f on tap and Ctrl+f (search)
     if (record->tap.count && record->event.pressed) {
@@ -1245,10 +1263,10 @@ void c_a_finished(qk_tap_dance_state_t *state, void *user_data) {
   c_a_state.state = cur_dance(state);
   switch (c_a_state.state) {
   case SINGLE_TAP: set_oneshot_mods(MOD_BIT(KC_LCTL)); break;        // emulate OSM for Ctrl
-  case SINGLE_HOLD: register_code(KC_LCTL); break;                // hold down Ctrl
+  case SINGLE_HOLD: clear_oneshot_mods(); register_code(KC_LCTL); break;                // hold down Ctrl
   case DOUBLE_TAP: set_oneshot_mods(MOD_BIT(KC_LALT)); break;     // emulate OSM for Alt
-  case DOUBLE_HOLD: register_code(KC_LALT); break;                // hold down Alt
-    // Last case (below) is for fast typing. Will hardly apply here, so INDEXING make it do something else... soon(ish):
+  case DOUBLE_HOLD: clear_oneshot_mods(); register_code(KC_LALT); break;                // hold down Alt
+    // Last case (below) is for fast typing. Will hardly apply here, so I make it do something else... soon(ish):
     // For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
     // In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
   case DOUBLE_SINGLE_TAP: break;
@@ -1286,7 +1304,7 @@ void esc_ov_finished(qk_tap_dance_state_t *state, void *user_data) {
   case SINGLE_HOLD: register_code(KC_LGUI); tap_code(KC_TAB);; break;                // send Win+Tab to toggle Overview on Windows
   case DOUBLE_TAP: break;     // emulate OSM for Alt
   case DOUBLE_HOLD: break;                // hold down Alt
-    // Last case (below) is for fast typing. Will hardly apply here, so INDEXING make it do something else... soon(ish):
+    // Last case (below) is for fast typing. Will hardly apply here, so I make it do something else... soon(ish):
     // For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
     // In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
   case DOUBLE_SINGLE_TAP: break;

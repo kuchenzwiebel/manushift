@@ -71,6 +71,11 @@
 #define UNICODE_KEY_WINC KC_F24
 
 
+
+
+
+
+
 /* * save file size - not needed because its done by ergodox_ez config.h anyways, but still... */
 
 #undef NO_PRINT
@@ -82,7 +87,10 @@
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
+#undef LOCKING_SUPPORT_ENABLE // only for special switches (and seems already deactivated elsewhere)
+#undef LOCKING_RESYNC_ENABLE  // only for special switches (and seems already deactivated elsewhere)
 
+#define NO_MUSIC_MODE
 
 // #define ORYX_CONFIGURATOR    // saves ~300 bytes, seems not to break anything
 
@@ -98,6 +106,8 @@
 /* I couldn't figure out how to disable animations and enable just single ones */
 /* so I just disable them all one after the other, saves me about 3.380 bytes of space */
 /* only it doesn't, so... probably its already deactivated somewhere else?  */
+
+
 
 #define DISABLE_RGB_MATRIX_ALPHAS_MODS
 #define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
