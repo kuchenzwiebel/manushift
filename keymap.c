@@ -70,19 +70,48 @@ void matrix_scan_user(void) {     // The very important timer.
 /* * Combos */
 // don't forget to update the combo counter in .config every time you add a combo!!!
 
-const uint16_t PROGMEM test_combo1[] = {KC_K, KC_H, KC_G, COMBO_END}; // Caps Lock
-const uint16_t PROGMEM test_combo2[] = {KC_V, KC_L, COMBO_END};
-const uint16_t PROGMEM test_combo3[] = {DE_EQL, DE_RABK, COMBO_END};
+enum combo_events {
+  capslock_combo,
+  KC1_combo,
+  insert_combo,
+  COMBO_LENGTH
+};
+uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
+
+const uint16_t PROGMEM comboaction1[] = {KC_K, KC_H, KC_G, COMBO_END}; // Caps Lock
+const uint16_t PROGMEM comboaction2[] = {KC_V, KC_L, COMBO_END};
+const uint16_t PROGMEM comboaction3[] = {DE_EQL, DE_RABK, COMBO_END};
 // TODO: make "⇒" from those to: DE_RPRN,        DE_MINS,
 
-combo_t key_combos[COMBO_COUNT] = {
-    COMBO(test_combo1, KC_CAPSLOCK),
-    COMBO(test_combo2, KC_1),             // this is stupid. i should do something more interesting with this ;-)
-    //    COMBO(test_combo3, X(DRAR)),
-    COMBO(test_combo3, KC_INSERT)        // really what i  want is to send Unicode ⇒, but it doesn't work with "X(DRAR)". will have to try sendstring in custom code
-    //    COMBO(test_combo2, LCTL(KC_Z)), // keycodes with modifiers are possible too!
 
+combo_t key_combos[] = {
+  [capslock_combo] = COMBO_ACTION(comboaction1),
+  [KC1_combo] = COMBO_ACTION(comboaction2),
+  [insert_combo]=COMBO_ACTION(comboaction3),
 };
+/* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case capslock_combo:
+      if (pressed) {
+        SEND_STRING("john.doe@example.com");
+      }
+      break;
+    case KC1_combo:
+      if (pressed) {
+        tap_code16(KC_END);
+        tap_code16(S(KC_HOME));
+        tap_code16(KC_BSPC);
+      }
+      break;
+  }
+}
+
+
+
+
+
 
 
 /* ** Combo configurations */
