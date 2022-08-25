@@ -6,11 +6,6 @@
 
 
 
-/* * combos */
-
-#define COMBO_COUNT 3      // take care to keep up to date
-#define COMBO_MUST_TAP_PER_COMBO   // Controls if a given combo should fire only if tapped within COMBO_HOLD_TERM. (default: false)
-
 
 /* * oneshot mods */
 

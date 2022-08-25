@@ -18,7 +18,7 @@ UNICODEMAP_ENABLE = yes # activate Unicode Table with indices
 NKRO_ENABLE      = no  # USB Nkey Rollover - do I need this? (saves only little on size)
 
 TAP_DANCE_ENABLE = yes
-COMBO_ENABLE = yes
+#COMBO_ENABLE = yes
 
 MUSIC_ENABLE = no
 
