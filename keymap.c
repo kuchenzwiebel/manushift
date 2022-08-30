@@ -423,7 +423,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [0] = LAYOUT_ergodox_pretty( // base layer
 			      /* base layer (neo2) */
-    TD(ESC_WTAB)    , KC_1         ,  KC_2       , KC_3         , KC_4       ,   KC_5       ,        RESET   ,                                         TG(6)  ,     KC_6 ,   KC_7       ,    KC_8,           KC_9,           KC_0,           KC_BSPACE,
+    TD(ESC_WTAB)    , KC_1         ,  KC_2       , KC_3         , KC_4       ,   KC_5       ,        QK_BOOT ,                                         TG(6)  ,     KC_6 ,   KC_7       ,    KC_8,           KC_9,           KC_0,           KC_BSPACE,
     KC_TAB          , x_CUT        ,  v_PASTE    , KC_L         , c_COPY     ,   KC_W       ,        TG(3)   ,                                         OSL(7) ,     KC_K ,   KC_H       ,    KC_G,           f_SEARCH,       KC_Q,           DE_SS,
     LT(2,KC_RALT)   , GUI_T(KC_U)  ,  ALT_T(KC_I), SFT_T(KC_A)  , CTL_T(KC_E),   KC_O       ,                                                                       KC_S ,   CTL_T(KC_N),    SFT_T(KC_R),    ALT_T(KC_T),    GUI_T(KC_D),           LT(2,DE_Y),
     LSFT_T(KC_ENTER), LT(1,DE_UDIA),  DE_ODIA    , DE_ADIA      , KC_P       ,   LT(4,DE_Z) ,        C(DE_Z) ,                                         C(KC_S),     KC_B ,   m_MENU     ,    KC_COMMA,       KC_DOT,         KC_J,           RSFT_T(KC_ENTER),
