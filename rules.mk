@@ -7,7 +7,7 @@ CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
 AUTO_SHIFT_ENABLE = no
 #AUTO_SHIFT_MODIFIERS = yes
-DYNAMIC_MACRO_ENABLE = yes # deactivated for now to save on flashing size
+DYNAMIC_MACRO_ENABLE = yes # could be deactivated for now to save on flashing size, costs around 650 bytes
 SRC = matrix.c
 RGB_MATRIX_ENABLE = yes
 RGBLIGHT_ENABLE = no     # disable underglow
@@ -22,8 +22,8 @@ TAP_DANCE_ENABLE = yes
 
 MUSIC_ENABLE = no
 
-MOUSEKEY_ENABLE = no
-EXTRAKEY_ENABLE = no
+MOUSEKEY_ENABLE = no # costs over 1400 bytes...
+EXTRAKEY_ENABLE = yes # costs ~480 bytes; for volume and multimedia control (could be done by AHK)
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
